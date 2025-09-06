@@ -1,0 +1,24 @@
+# Maintainer: shins0u <yinye1986@gmail.com>
+pkgname=mihomo
+pkgver=1.19.13  # 根据实际版本更新
+pkgrel=1
+pkgdesc="Another Clash Kernel"
+arch=('x86_64')
+url="https://github.com/MetaCubeX/mihomo"
+depends=('glibc')
+license=('MIT')
+source=("https://github.com/MetaCubeX/mihomo/releases/download/v${pkgver}/mihomo-linux-amd64-v${pkgver}.gz"
+        "mihomo.service")
+sha256sums=('SKIP'
+            'SKIP')
+options=(!debug strip)
+
+prepare() {
+    gunzip -c "mihomo-linux-amd64-v${pkgver}.gz" > mihomo
+
+}
+
+package() {
+    install -Dm755 mihomo "$pkgdir/usr/bin/mihomo"
+    install -Dm644 mihomo.service "${pkgdir}/usr/lib/systemd/system/mihomo.service"
+}

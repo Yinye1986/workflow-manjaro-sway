@@ -1,0 +1,130 @@
+[scrolling]
+history    = 10000 # 滚动回溯缓冲区，不能超过100000；如果你想禁用滚动，可以设置为0。
+multiplier = 3 # 每次输入滚动增量时滚动的行数
+
+# shell字段可以设置为你喜欢的shell的路径，例如/bin/zsh
+# shell.args中的条目将作为参数传递给shell
+[terminal.shell]
+program = "/bin/zsh"
+args    = [ "-l"]
+
+# ipc_socket字段表示是否提供IPC使用alacritty msg（仅unix）
+# 默认值：true
+
+[selection]
+# semantic_escape_chars = ",│`|:\"' ()[]{}<>\t" # 语义分割符；可以替换为你喜欢的字符
+save_to_clipboard = true # 可以设置为true，这样选中的文本就会被复制到主剪贴板
+
+
+[terminal]
+osc52 = "OnlyCopy" # osc52字段控制是否允许使用OSC 52转义序列写入系统剪贴板。虽然这个转义序列在从远程服务器复制内容时很有用，但是允许任何应用程序从剪贴板读取可能会被轻易滥用，而且相比于显式粘贴文本，它并没有提供显著的好处。 
+
+[cursor]
+style = { shape  = "Block", blinking = "Off" } # 可以替换为你喜欢的形状和闪烁行为
+vi_mode_style    = "None" # 可以替换为你在vi模式下喜欢的光标样式
+# blink_interval   = 750 # 可以替换为你喜欢的闪烁间隔
+# blink_timeout    = 5 # 可以替换为你喜欢的闪烁超时时间，如果你想禁用闪烁超时，可以设置为0
+unfocused_hollow = true # 可以设置为false，这样当窗口失去焦点时，光标将不会被渲染为空心框
+thickness        = 0.15 # 可以替换为你喜欢的厚度
+
+#[bell]
+#animation = "Linear" # 可以替换为你喜欢的动画效果
+#duration  = 15 # 可以替换为你喜欢的持续时间，如果你想禁用动画，可以设置为0
+#color     = "#ffffff" # 可以替换为你喜欢的颜色
+#command   = "None" # 可以替换为你想要执行的命令，如果你不想执行任何命令，可以设置为"None"
+
+# ENV部分中的所有键值对将作为环境变量添加到Alacritty启动的任何进程中，包括其shell。
+# 一些条目可能会覆盖由alacritty自身设置的变量。
+# 例如：
+[env]
+WTERM                 = "xterm-256color" # 指定终端类型为256色
+INIT_X11_SCALE_FACTOR = "2" # 缩放因子
+
+[window]
+dimensions      = { columns = 80,lines = 36 } #窗口尺寸；行/列；最小2；设为0则自动配置
+position        = "None" # { x = 0, y = 0 } # 窗口启动位置，以像素数指定；如果位置是"None"，窗口管理器将处理放置
+padding         = { x = 0, y = 0 } # 在窗口周围添加的空白空间，单位为像素。此填充由DPI缩放，并且指定的值总是在两个对立面添加
+dynamic_padding = true # 是否将额外的填充均匀地分布在终端内容周围
+decorations     = "None" # Full：边框和标题栏；None：既无边框也无标题栏；Transparent（仅macOS）：标题栏，透明背景和标题栏按钮；Buttonless（仅macOS）：标题栏，透明背景和无标题栏按钮
+opacity = 0.85 # 背景不透明度，0.0到1.0的浮点数
+# blur = true # 毛玻璃,仅macOS / KDE Wayland
+startup_mode = "Windowed"
+title = "Alacritty"
+dynamic_title = true
+
+[font]
+normal              = { family = "monospace", style = "Regular" } # 可以替换为你喜欢的字体和样式
+bold                = { style = "Bold" }                          # 可以添加family字段来指定不同的字体
+italic              = { style = "Italic" }                        # 可以添加family字段来指定不同的字体
+bold_italic         = { style = "Bold Italic" }                   # 可以添加family字段来指定不同的字体
+size                = 14
+offset              = { x = 0, y = 0 }                            # 可以调整x和y的值来改变字母间距和行间距
+glyph_offset        = { x = 0, y = 0 }                            # 可以调整x和y的值来改变字符在其单元格内的位置
+builtin_box_drawing = true                                        # 可以设置为false来使用系统字体绘制盒子字符和电源线符号
+
+[mouse]
+hide_when_typing = true # 可以设置为true，这样输入时光标会暂时隐藏
+bindings         = [
+    { mouse = "Right", action = "ExpandSelection" },
+#    { mouse = "Forward", mods = "Control", action = "" },
+#    { mouse = "Back", mods = "Control", action = "" }
+]
+
+# HINTS部分记录了配置文件的[hints]表。
+
+# Terminal hints可以用来在终端的可见部分找到文本或超链接，并将其传输给其他应用程序。
+
+# alphabet字段表示用于提示标签的键。
+# 默认值："jfkdls;ahgurieowpq"
+# alphabet = "<string>"
+
+# enabled字段是一个数组，包含所有可用的提示。
+# 每个提示必须至少有一个regex或hyperlinks，以及一个action或command。
+# enabled = [{ regex = "<regex>", hyperlinks = "<hyperlinks>", post_processing = "<post_processing>", persist = "<persist>", action = "<action>", command = "<command>", binding = "<binding>", mouse = "<mouse>" },]
+
+# regex字段表示每行将与之比较的正则表达式。
+
+# hyperlinks字段表示当为true时，所有OSC 8转义序列超链接将包含在提示中。
+
+# post_processing字段表示当为true时，如果有字符可能不是提示的一部分（例如，尾随的.），将使用启发式方法缩短匹配。这对URI最有用，仅适用于正则表达式匹配。
+
+# persist字段表示当为true时，提示在选择后保持持久。
+
+# action字段表示动作。可以是"Copy"，"Paste"，"Select"，"MoveViModeCursor"中的一个。
+
+# command字段表示当提示被点击或通过绑定选择时将执行的命令。提示的文本总是作为最后一个参数附加。
+
+# binding字段表示用于启动键盘提示选择过程的键绑定。
+
+# mouse字段表示鼠标设置。enabled字段控制是否在按下所有mods并悬停在提示文本上时下划线提示。
+
+[keyboard]
+bindings = [
+    { key = "O", mods = "Control", action = "ToggleViMode" },
+
+    { key = "U", mode = "Vi|~Search", action = "Up" },
+    { key = "E", mode = "Vi|~Search", action = "Down" },
+    { key = "N", mode = "Vi|~Search", action = "Left" },
+    { key = "I", mode = "Vi|~Search", action = "Right" },
+    { key = "N", mode = "Vi|~Search", mods = "Control", action = "SemanticLeft" },
+    { key = "I", mode = "Vi|~Search", mods = "Control", action = "SemanticRight" },
+
+    { key = "Y", mode = "Vi|~Search", action = "Copy" },
+    { key = "P", mods = "Control", action = "Paste" },
+    { key = "L", mode = "Vi|~Search", action = "SearchNext" },
+    { key = "L", mode = "Vi|~Search", mods = "Shift", action = "SearchPrevious" },
+
+    { key = "=", mods = "Control", action = "IncreaseFontSize" },
+    { key = "-", mods = "Control", action = "DecreaseFontSize" },
+]
+
+[general]
+# Alacritty配置文件使用TOML格式，你可以在这里找到格式规范：https://toml.io/en/v1.0.0
+
+# GENERAL部分记录了配置文件的根级别
+
+# import字段用于导入额外的配置文件。导入的顺序是按照列表中的顺序，跳过所有缺失的文件，最后加载导入的文件
+# 所有的导入必须是以/开始的绝对路径，或者是以~/开始的相对于用户主目录的路径
+import = [
+    "~/.config/alacritty/themes/gruvbox_dark.toml"
+]
