@@ -1,0 +1,1 @@
+g++ -o ddsu666_reader ddsu666_reader.cpp -lmodbus
